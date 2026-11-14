@@ -53,7 +53,7 @@ const titleObject = new ljs.EngineObject(
   titleTile,
 );
 
-
+export { titleObject };
 export { chuddyRoom };
 
 export { chuddyGuy };
