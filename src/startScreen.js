@@ -31,6 +31,7 @@ const chuddyGuyImage = new ljs.TextureInfo(chuddyGuyHTMLImage);
 const chuddyGuyTiles = {
   anim1: new ljs.TileInfo(ljs.vec2(0, 0), ljs.vec2(32, 32), chuddyGuyImage),
   anim2: new ljs.TileInfo(ljs.vec2(32, 0), ljs.vec2(32, 32), chuddyGuyImage),
+  back: new ljs.TileInfo(ljs.vec2(64, 0), ljs.vec2(32, 32), chuddyGuyImage),
 };
 
 const chuddyGuy = new ljs.EngineObject(
