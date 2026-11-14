@@ -51,6 +51,11 @@ function enterGame() {
       VERITY.play();
     }, 500);
     ljs.engineInit(startGame, updateGame);
+    let element =document.getElementById("buttonCool")
+    element.addEventListener("click", gameStart)
+    function gameStart() {
+
+    }
   }
 }
 //make it so that on click of the button with the id "button" it calls the enterGame function
