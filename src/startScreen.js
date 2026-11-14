@@ -40,7 +40,7 @@ const chuddyGuy = new ljs.EngineObject(
 );
 
 const titleHTMLImage = new Image();
-titleHTMLImage.src = "../assets/touch grass you chud letter logo pixel.png";
+titleHTMLImage.src = "../assets/textlogo.png";
 const title = new ljs.TextureInfo(titleHTMLImage);
 const titleTile = new ljs.TileInfo(
   ljs.vec2(0, 0),
@@ -48,8 +48,8 @@ const titleTile = new ljs.TileInfo(
   title,
 );
 const titleObject = new ljs.EngineObject(
-  ljs.vec2(0, 0),
-  ljs.vec2(32, 32),
+  ljs.vec2(2, 0),
+  ljs.vec2(32, 10),
   titleTile,
 );
 

@@ -1,11 +1,12 @@
 import * as ljs from "littlejsengine";
 import { chuddyGuy, chuddyGuyTiles } from "./src/startScreen.js";
 // runs first when the page loads
-let gameState = "startScreen";
+let gameState = "audioScreen";
 
 let gameUpdateFrames = {
   updateChuddyGuy: 0,
 };
+
 
 let VERITY = new Audio("../assets/VERITY.mp3");
 
@@ -29,6 +30,7 @@ function updateGame() {
 }
 // renders updated game
 function enterGame(){
+    if (gameState == "audioScreen") {
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
     document.getElementById("verity").hidden = false;
     setTimeout(() => {
@@ -36,6 +38,8 @@ function enterGame(){
     }, 2000);
     VERITY.play();
 ljs.engineInit(startGame, updateGame);
+gameState = "startScreen";
+    }
 }
 //make it so that on click of the button with the id "button" it calls the enterGame function
 document.getElementById("buttonCool").addEventListener("click", enterGame);
