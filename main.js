@@ -41,7 +41,6 @@ objectiveAudio.play();
 function enterGame() {
   if (gameState == "audioScreen") {
     gameState = "startScreen";
-    document.getElementById("before").hidden = true;
     document.getElementById("loadingScreen").hidden = true;
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
     document.getElementById("verity").hidden = false;
