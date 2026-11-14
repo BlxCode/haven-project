@@ -40,7 +40,9 @@ objectiveAudio.play();
 }
 function enterGame() {
   if (gameState == "audioScreen") {
+    gameState = "startScreen";
     document.getElementById("before").hidden = true;
+    document.getElementById("loadingScreen").hidden = true;
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
     document.getElementById("verity").hidden = false;
     setTimeout(() => {
@@ -50,8 +52,6 @@ function enterGame() {
       VERITY.play();
     }, 500);
     ljs.engineInit(startGame, updateGame);
-
-    gameState = "startScreen";
   }
 }
 //make it so that on click of the button with the id "button" it calls the enterGame function
