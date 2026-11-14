@@ -34,7 +34,7 @@ function enterGame(){
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
     document.getElementById("verity").hidden = false;
     setTimeout(() => {
-    document.getElementById("buttonCool").textContent = "PLAY";
+    document.getElementById("buttonCool").textContent = "Start!";
     }, 2000);
     VERITY.play();
 ljs.engineInit(startGame, updateGame);

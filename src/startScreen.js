@@ -48,7 +48,7 @@ const titleTile = new ljs.TileInfo(
   title,
 );
 const titleObject = new ljs.EngineObject(
-  ljs.vec2(2, 0),
+  ljs.vec2(14, 8.5),
   ljs.vec2(32, 10),
   titleTile,
 );
