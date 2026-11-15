@@ -164,9 +164,7 @@ function enterGame() {
                     "fadeOut 1s forwards";
                   document.getElementById("backdrop").style.animation =
                     "fadeOut 1s forwards";
-                  setTimeout(() => {
-                    document.getElementById("staminaBar").hidden = false;
-                  }, 1000);
+                
                 }, 4500);
               }, 1670);
             }, 300);

@@ -9,8 +9,6 @@ import {
   noodleTile,
   ratTile,
 } from "./floor.js";
-let maxStamina = 5;
-let stamina = 5;
 let textureInfo;
 let idk = 0;
 let typesTileInfo = {};
@@ -125,7 +123,6 @@ class player extends ljs.EngineObject {
   }
 
   update() {
-        document.getElementById("staminaBar").value = stamina;
 
     if(this.groundObject){
         if(this.groundObject.type == "couch"){
@@ -137,13 +134,9 @@ newObjectiveText("You are now on grass. You feel a sense of calm and peace. Sudd
         }
     }
     const moveInput = ljs.keyDirection();
-    if (stamina+1 > maxStamina){
- stamina ++
-    }
-    if (Math.abs(moveInput.x) > 0.1 && stamina < 0) {
+    if (Math.abs(moveInput.x) > 0.1) {
       this.velocity.x += moveInput.x * (this.groundObject ? 0.05 : 0.045);
       this.velocity.x = Math.max(-0.3, Math.min(0.3, this.velocity.x));
-      stamina --;
     }
     if (this.velocity.x > 0.1) {
       this.mirror = false;
@@ -162,7 +155,7 @@ newObjectiveText("You are now on grass. You feel a sense of calm and peace. Sudd
 
     if (
       this.groundObject &&
-      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space")) && stamina < 0
+      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))
     ) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
@@ -206,7 +199,7 @@ window.addEventListener("gameJustStartedVro", () => {
 
   for (let i = 0; i < 350; i += 15) {
     const randomX = i + Math.random() + -0.5;
-    const randomY = 1;
+    const randomY = -3;
     const randomNum = Math.random();
     if (randomNum >= 0.5) {
       var randomType = "table";

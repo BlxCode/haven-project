@@ -5,13 +5,3 @@
     height: 200px;
     font-size: 300px;
 }
-
-#staminaBar {
-    width: 15rem;
-    height: 5rem;
-    z-index: 99999999999999999999;
-    position: fixed;
-    bottom: 1rem;
-    left: 1rem;
-    color:yellow;
-}
