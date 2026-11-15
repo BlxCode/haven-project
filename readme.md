@@ -1,9 +1,17 @@
 # Touch Grass You Chud!!!
 Experience being a chud. Made for Hack Club Haven Vancouver.
-<img src="./public/assets/chudLogo.png" alt="chud logo" width="170">
 
 [Try it!](https://www.chess.com)
 
 # Built with
-<img src="./pubic/assets/littleJsLogo.png" alt="LittleJS logo" width="400">
 - LittleJS
+- HTMl
+- CSS
+- JavaScript
+
+# Description
+Chud's AI girlfreind dumps him and tells him to touch grass. 
+Chud decides to lock in and touch grass to get his girlfreind back.
+
+# Made by
+William Li and Quino Yaptangco
