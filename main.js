@@ -166,5 +166,6 @@ function enterGame() {
     }
   }
 }
+export {newObjectiveText};
 //make it so that on click of the button with the id "button" it calls the enterGame function
 document.getElementById("buttonCool").addEventListener("click", enterGame);
