@@ -10,7 +10,8 @@ Experience being a chud. Made for Hack Club Haven Vancouver.
 - JavaScript
 
 # Description
-Chud 
+Chud's AI girlfreind dumps him and tells him to touch grass. 
+Chud decides to lock in and touch grass to get his girlfreind back.
 
 # Made by
 William Li and Quino Yaptangco
