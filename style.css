@@ -5,3 +5,10 @@
     height: 200px;
     font-size: 300px;
 }
+
+#staminaBar {
+    width: 25px;
+    height: 10px;
+    z-index: 99999999999999999999;
+    x-index: 99999999999999999999;
+}
