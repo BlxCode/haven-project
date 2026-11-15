@@ -38,6 +38,8 @@ objectiveAudio.play();
   }, 3000);
 
 }
+  const aiDatingScreen = document.getElementById("datingScreen")
+aiDatingScreen.hidden = true
 function enterGame() {
   if (gameState == "audioScreen") {
     gameState = "startScreen";
@@ -53,8 +55,9 @@ function enterGame() {
     ljs.engineInit(startGame, updateGame);
     let element =document.getElementById("buttonCool")
     element.addEventListener("click", gameStart)
+  
     function gameStart() {
-
+aiDatingScreen.hidden = false
     }
   }
 }
