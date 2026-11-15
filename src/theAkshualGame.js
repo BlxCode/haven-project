@@ -2,7 +2,13 @@ import * as ljs from "littlejsengine";
 import { newObjectiveText } from "../main.js";
 const platformsImage = new Image();
 platformsImage.src = "../assets/platforms.png";
-import {redditWallTile,archWallTile,drinkTile,noodleTile,ratTile} from "./floor.js";
+import {
+  redditWallTile,
+  archWallTile,
+  drinkTile,
+  noodleTile,
+  ratTile,
+} from "./floor.js";
 let textureInfo;
 let idk = 0;
 let typesTileInfo = {};
@@ -107,15 +113,14 @@ class player extends ljs.EngineObject {
   }
 
   update() {
-    
     const moveInput = ljs.keyDirection();
     if (Math.abs(moveInput.x) > 0.1) {
       this.velocity.x += moveInput.x * (this.groundObject ? 0.05 : 0.045);
       this.velocity.x = Math.max(-0.3, Math.min(0.3, this.velocity.x));
-    } 
-    if(this.velocity.x > 0.1){
+    }
+    if (this.velocity.x > 0.1) {
       this.mirror = false;
-    } else if(this.velocity.x < -0.1){
+    } else if (this.velocity.x < -0.1) {
       this.mirror = true;
     }
     this.walkFrames++;
@@ -127,7 +132,10 @@ class player extends ljs.EngineObject {
     if (Math.abs(moveInput.x) < 0.1) {
       this.tileInfo = playerTileInfos.idle;
     }
-    if (this.groundObject && moveInput.y > 0) {
+
+
+
+    if (this.groundObject && (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
     }
@@ -137,21 +145,29 @@ class player extends ljs.EngineObject {
     if (this.velocity.y > 0.1) {
       this.tileInfo = playerTileInfos.fall;
     }
-    if(this.pos.y < -30){
-        this.pos = ljs.vec2(1, 15);
-        newObjectiveText("You fell off the map. You have been respawned.");
-        this.velocity = ljs.vec2(0, 0);
+    if (this.pos.y < -30) {
+      this.pos = ljs.vec2(1, 15);
+      newObjectiveText("You fell off the map. You have been respawned.");
+      this.velocity = ljs.vec2(0, 0);
     }
     ljs.setCameraPos(this.pos);
   }
 }
 window.addEventListener("gameJustStartedVro", () => {
-    for( let i = -10; i < 20; i++){
-const wall = new ljs.EngineObject(ljs.vec2(i*100,0),ljs.vec2(100,56),archWallTile);
-console.log("arch wall created at x: " + i);
-console.log("arch wall created at y: " + 0);
-console.log("arch wall created at pos: " + wall.pos);
-console.log("wall", wall);
+  for (let i = -10; i < 20; i++) {
+    const wall = new ljs.EngineObject(
+      ljs.vec2(i * 100, -10),
+      ljs.vec2(100, 56),
+      archWallTile,
+    );
+    wall.velocity = ljs.vec2(0,0);
+     wall.gravityScale = 0;
+    wall.mass = ljs.vec2(0,0)
+    console.log(archWallTile);
+    console.log("arch wall created at x: " + i);
+    console.log("arch wall created at y: " + 0);
+    console.log("arch wall created at pos: " + wall.pos);
+    console.log("wall", wall);
   }
   ljs.setGravity(ljs.vec2(0, -0.06));
 
@@ -160,21 +176,16 @@ console.log("wall", wall);
 
   console.log("gameJustStartedVro event received in startScreen.js");
 
-  for (let i = 0; i < 350; i+= 8) {
-    
-    const randomX = i + Math.random() + - 0.5;
+  for (let i = 0; i < 350; i += 9) {
+    const randomX = i + Math.random() + -0.5;
     const randomY = 1;
     const randomNum = Math.random();
-    if (randomNum < 0.33) {
+    if (randomNum >= 0.5) {
       var randomType = "table";
-    } else if (randomNum < 0.66) {
+    } else if (randomNum < 0.5) {
       var randomType = "couch";
-    } else {
-      var randomType = "chair";
-    }
+    } 
     new Platform(ljs.vec2(randomX, randomY), randomType);
   }
-
-  
 });
 export { idk };
