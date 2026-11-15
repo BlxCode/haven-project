@@ -6,56 +6,67 @@ import * as ljs from "littlejsengine";
 
 const chuddyRoomHTMLImage = new Image();
 chuddyRoomHTMLImage.src = "../assets/loadingRoom.png";
+let chuddyRoomImage, chuddyRoomTile, chuddyRoom;
 
-const chuddyRoomImage = new ljs.TextureInfo(chuddyRoomHTMLImage);
+chuddyRoomHTMLImage.onload = () => {
 
-const chuddyRoomTile = new ljs.TileInfo(
+ chuddyRoomImage = new ljs.TextureInfo(chuddyRoomHTMLImage);
+
+ chuddyRoomTile = new ljs.TileInfo(
   ljs.vec2(0, 0),
   ljs.vec2(100,56),
   chuddyRoomImage,
 );
 
-const chuddyRoom = new ljs.EngineObject(
+ chuddyRoom = new ljs.EngineObject(
   ljs.vec2(0, 0),
     ljs.vec2(64,37),
   chuddyRoomTile,
 );
 
-
+}
 
 
 
 const chuddyGuyHTMLImage = new Image();
+let chuddyGuyImage, chuddyGuyTiles, chuddyGuy;
 chuddyGuyHTMLImage.src = "../assets/chuddy.png";
-const chuddyGuyImage = new ljs.TextureInfo(chuddyGuyHTMLImage);
-const chuddyGuyTiles = {
-  anim1: new ljs.TileInfo(ljs.vec2(0, 0), ljs.vec2(32, 32), chuddyGuyImage),
-  anim2: new ljs.TileInfo(ljs.vec2(32, 0), ljs.vec2(32, 32), chuddyGuyImage),
-  back: new ljs.TileInfo(ljs.vec2(64, 0), ljs.vec2(32, 32), chuddyGuyImage),
-  cryStage1: new ljs.TileInfo(ljs.vec2(96, 0), ljs.vec2(32, 32), chuddyGuyImage),
-  cryStage2: new ljs.TileInfo(ljs.vec2(128, 0), ljs.vec2(32, 32), chuddyGuyImage),
-  cryStage3: new ljs.TileInfo(ljs.vec2(160, 0), ljs.vec2(32, 32), chuddyGuyImage),
+chuddyGuyHTMLImage.onload = () => {
+ chuddyGuyImage = new ljs.TextureInfo(chuddyGuyHTMLImage);
+ chuddyGuyTiles = {
+  anim1: new ljs.TileInfo(ljs.vec2(0, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
+  anim2: new ljs.TileInfo(ljs.vec2(32, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
+  back: new ljs.TileInfo(ljs.vec2(64, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
+  cryStage1: new ljs.TileInfo(ljs.vec2(96, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
+  cryStage2: new ljs.TileInfo(ljs.vec2(128, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
+  cryStage3: new ljs.TileInfo(ljs.vec2(160, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
+  cryFront: new ljs.TileInfo(ljs.vec2(192, 0), ljs.vec2(32, 32), chuddyGuyImage,1),
 };
 
-const chuddyGuy = new ljs.EngineObject(
+ chuddyGuy = new ljs.EngineObject(
   ljs.vec2(-18, -6),
   ljs.vec2(20, 20),
   chuddyGuyTiles.anim1,
 );
+};
 
 const titleHTMLImage = new Image();
+let title, titleTile, titleObject;
+
 titleHTMLImage.src = "../assets/textlogo.png";
-const title = new ljs.TextureInfo(titleHTMLImage);
-const titleTile = new ljs.TileInfo(
+titleHTMLImage.onload = () => {
+ title = new ljs.TextureInfo(titleHTMLImage);
+ titleTile = new ljs.TileInfo(
   ljs.vec2(0, 0),
   ljs.vec2(100, 25),
   title,
 );
-const titleObject = new ljs.EngineObject(
+ titleObject = new ljs.EngineObject(
   ljs.vec2(14, 8.5),
   ljs.vec2(32, 10),
   titleTile,
 );
+}
 
 export { titleObject };
 export { chuddyRoom };

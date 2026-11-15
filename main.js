@@ -2,13 +2,14 @@ import * as ljs from "littlejsengine";
 import { chuddyGuy, chuddyGuyTiles, titleObject } from "./src/startScreen.js";
 // runs first when the page loads
 let gameState = "audioScreen";
+const georgePig = new Audio("../assets/george.mp3");
 
 let gameUpdateFrames = {
   updateChuddyGuy: 0,
 };
 
 let VERITY = new Audio("../assets/VERITY.mp3");
-
+let aiTalk = new Audio("../assets/aiTalk.mp3");
 VERITY.loop = true;
 function startGame() {}
 // runs every frame
@@ -57,9 +58,21 @@ document.getElementById("verity").addEventListener("click", () => {
     }, 3500);
   }
 });
+function makeChudCryScene() {
+    setTimeout(() => {
+        console.log("chud cry scene");
+    chuddyGuy.tileInfo = chuddyGuyTiles.cryFront;
+    chuddyGuy.size = ljs.vec2(50, 50);
+    chuddyGuy.pos = ljs.vec2(0,0);
+    }, 500);
+}
+let violinSad = new Audio("../assets/sad.mp3");
+    ljs.engineInit(startGame, updateGame);
+
 function enterGame() {
   if (gameState == "audioScreen") {
     document.getElementById("sc").remove();
+
     gameState = "startScreen";
     document.getElementById("loadingScreen").hidden = true;
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
@@ -70,18 +83,20 @@ function enterGame() {
     setTimeout(() => {
       VERITY.play();
     }, 500);
-    ljs.engineInit(startGame, updateGame);
     let element = document.getElementById("buttonCool");
     element.addEventListener("click", gameStart);
 
     function gameStart() {
+        setTimeout(() => {
+          aiTalk.play();
+        }, 500);
       titleObject.destroy();
       VERITY.pause();
       element.remove();
       aiDatingScreen.hidden = false;
       setTimeout(() => {
         aiDatingScreen.hidden = true;
-      }, 3500);
+      }, 15500);
       gameState = "theAkshualGame";
       chuddyGuy.tileInfo = chuddyGuyTiles.cryStage1;
       document.getElementById("verity").remove();
@@ -90,10 +105,29 @@ function enterGame() {
         newObjectiveText(
           'You got rejected by your ai girlfriend 💀😭. She said "go touch grass" and left you alone.',
         );
-      }, 4500);
+      }, 16500);
       setTimeout(() => {
         chuddyGuy.tileInfo = chuddyGuyTiles.cryStage3;
-      }, 5500);
+        georgePig.play();
+        makeChudCryScene();
+      }, 17500);
+      setTimeout(() => {
+        violinSad.play();
+      }, 17600);
+      setTimeout(() => {
+      chuddyGuy.tileInfo = chuddyGuyTiles.cryStage2;
+      }, 21500);
+      setTimeout(() => {
+        chuddyGuy.tileInfo = chuddyGuyTiles.cryStage1;
+      }, 124500);
+      setTimeout(() => {
+          chuddyGuy.tileInfo = chuddyGuyTiles.back;
+    chuddyGuy.size = ljs.vec2(20, 20);
+    chuddyGuy.pos = ljs.vec2(0,-5);
+        newObjectiveText(
+          "You are now alone in the world. the game will make ur character walk into the door cuz i said so, to maybe get her back.",
+        );
+      }, 23600);
     }
   }
 }
