@@ -30,16 +30,33 @@ function updateGame() {
 // renders updated game
 let objectiveAudio = new Audio("../assets/newObjective.mp3");
 function newObjectiveText(text) {
-    document.getElementById("objective-div").hidden = false;
+  document.getElementById("objective-div").hidden = false;
   document.getElementById("objective-text").textContent = text;
-objectiveAudio.play();
-  setTimeout(() => {
-    document.getElementById("objective-div").hidden = true;
-  }, document.getElementById("objective-text").textContent.length * 67);
-
+  objectiveAudio.play();
+  setTimeout(
+    () => {
+      document.getElementById("objective-div").hidden = true;
+    },
+    document.getElementById("objective-text").textContent.length * 67,
+  );
 }
-  const aiDatingScreen = document.getElementById("datingScreen")
-aiDatingScreen.hidden = true
+const aiDatingScreen = document.getElementById("datingScreen");
+aiDatingScreen.hidden = true;
+let verityTouches = 0;
+document.getElementById("verity").addEventListener("click", () => {
+  verityTouches++;
+  if (verityTouches == 67) {
+    newObjectiveText(
+      "stop touching me u chud 😡 cheung cheung cheung sahur will kill u",
+    );
+    setTimeout(() => {
+      document.getElementById("verity").remove();
+      document.getElementById("tripleC").hidden = false;
+      document.getElementById("buttonCool").remove();
+      VERITY.pause();
+    }, 3500);
+  }
+});
 function enterGame() {
   if (gameState == "audioScreen") {
     document.getElementById("sc").remove();
@@ -54,32 +71,29 @@ function enterGame() {
       VERITY.play();
     }, 500);
     ljs.engineInit(startGame, updateGame);
-    let element =document.getElementById("buttonCool")
-    element.addEventListener("click", gameStart)
-  
+    let element = document.getElementById("buttonCool");
+    element.addEventListener("click", gameStart);
+
     function gameStart() {
-     titleObject.destroy();
-     VERITY.pause();
-        element.remove();
-aiDatingScreen.hidden = false
-setTimeout(() => {
-  aiDatingScreen.hidden = true;
-}, 3500);
-gameState = "theAkshualGame";
-chuddyGuy.tileInfo = chuddyGuyTiles.cryStage1
-setTimeout(() => {
-  chuddyGuy.tileInfo = chuddyGuyTiles.cryStage2;
-    newObjectiveText('You got rejected by your ai girlfriend 💀😭. She said "go touch grass" and left you alone.')
-
-}, 4500);
-setTimeout(() => {
-  chuddyGuy.tileInfo = chuddyGuyTiles.cryStage3
-
-}, 5500);
-
-
-
-
+      titleObject.destroy();
+      VERITY.pause();
+      element.remove();
+      aiDatingScreen.hidden = false;
+      setTimeout(() => {
+        aiDatingScreen.hidden = true;
+      }, 3500);
+      gameState = "theAkshualGame";
+      chuddyGuy.tileInfo = chuddyGuyTiles.cryStage1;
+      document.getElementById("verity").remove();
+      setTimeout(() => {
+        chuddyGuy.tileInfo = chuddyGuyTiles.cryStage2;
+        newObjectiveText(
+          'You got rejected by your ai girlfriend 💀😭. She said "go touch grass" and left you alone.',
+        );
+      }, 4500);
+      setTimeout(() => {
+        chuddyGuy.tileInfo = chuddyGuyTiles.cryStage3;
+      }, 5500);
     }
   }
 }
