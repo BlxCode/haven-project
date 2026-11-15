@@ -3,6 +3,7 @@ import { chuddyGuy, chuddyGuyTiles, titleObject } from "./src/startScreen.js";
 // runs first when the page loads
 let gameState = "audioScreen";
 const georgePig = new Audio("../assets/george.mp3");
+const flashSound = new Audio("../assets/valorant-flash.mp3");
 
 let gameUpdateFrames = {
   updateChuddyGuy: 0,
@@ -11,7 +12,7 @@ let gameUpdateFrames = {
 let VERITY = new Audio("../assets/VERITY.mp3");
 let aiTalk = new Audio("../assets/aiTalk.mp3");
 VERITY.loop = true;
-function startGame() {}
+function startGame() { }
 // runs every frame
 function updateGame() {
   for (const things in gameUpdateFrames) {
@@ -59,15 +60,15 @@ document.getElementById("verity").addEventListener("click", () => {
   }
 });
 function makeChudCryScene() {
-    setTimeout(() => {
-        console.log("chud cry scene");
+  setTimeout(() => {
+    console.log("chud cry scene");
     chuddyGuy.tileInfo = chuddyGuyTiles.cryFront;
     chuddyGuy.size = ljs.vec2(50, 50);
-    chuddyGuy.pos = ljs.vec2(0,0);
-    }, 500);
+    chuddyGuy.pos = ljs.vec2(0, 0);
+  }, 500);
 }
 let violinSad = new Audio("../assets/sad.mp3");
-    ljs.engineInit(startGame, updateGame);
+ljs.engineInit(startGame, updateGame);
 
 function enterGame() {
   if (gameState == "audioScreen") {
@@ -87,9 +88,9 @@ function enterGame() {
     element.addEventListener("click", gameStart);
 
     function gameStart() {
-        setTimeout(() => {
-          aiTalk.play();
-        }, 500);
+      setTimeout(() => {
+        aiTalk.play();
+      }, 500);
       titleObject.destroy();
       VERITY.pause();
       element.remove();
@@ -115,34 +116,40 @@ function enterGame() {
         violinSad.play();
       }, 17600);
       setTimeout(() => {
-      chuddyGuy.tileInfo = chuddyGuyTiles.cryStage2;
+        chuddyGuy.tileInfo = chuddyGuyTiles.cryStage2;
       }, 21500);
       setTimeout(() => {
         chuddyGuy.tileInfo = chuddyGuyTiles.cryStage1;
       }, 124500);
       setTimeout(() => {
-          chuddyGuy.tileInfo = chuddyGuyTiles.back;
-    chuddyGuy.size = ljs.vec2(20, 20);
-    chuddyGuy.pos = ljs.vec2(0,-5);
+        chuddyGuy.tileInfo = chuddyGuyTiles.back;
+        chuddyGuy.size = ljs.vec2(20, 20);
+        chuddyGuy.pos = ljs.vec2(0, -5);
         newObjectiveText(
           "You are now alone in the world. the game will make ur character walk into the door cuz i said so, to maybe get her back.",
         );
         setTimeout(() => {
-chuddyGuy.pos = ljs.vec2(3, 2);
-chuddyGuy.size = ljs.vec2(10, 10);
-setTimeout(() => {
-    chuddyGuy.pos = ljs.vec2(8, 5);
-    chuddyGuy.size = ljs.vec2(5, 5);
-    setTimeout(() => {
-document.dispatchEvent(new Event("gameJustStartedVro"))
-document.getElementById("backdrop").hidden = false;
-document.getElementById("backdrop").style.animation = "fadeIn 1s forwards";
-    }, 300);
-}, 1000);
+          chuddyGuy.pos = ljs.vec2(3, 2);
+          chuddyGuy.size = ljs.vec2(10, 10);
+          setTimeout(() => {
+            chuddyGuy.pos = ljs.vec2(8, 5);
+            chuddyGuy.size = ljs.vec2(5, 5);
+            setTimeout(() => {
+              document.dispatchEvent(new Event("gameJustStartedVro"))
+              document.getElementById("backdrop").hidden = false;
+              document.getElementById("backdrop").style.animation = "fadeIn 1s forwards";
+
+              setTimeout(() => { 
+                flashSound.play();
+                document.getElementById("backdrop2").hidden = false;
+                document.getElementById("backdrop2").style.animation = "fadeIn 1s forwards";
+              }, 1670)
+            }, 300);
+          }, 1000);
         }, 1000);
       }, 23600);
     }
   }
 }
 //make it so that on click of the button with the id "button" it calls the enterGame function
-document.getElementById("buttonCool").addEventListener("click", enterGame);
+                document.getElementById("buttonCool").addEventListener("click", enterGame);
