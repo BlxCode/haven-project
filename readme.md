@@ -4,5 +4,6 @@ Experience being a chud.
 
 [Try it!](https://www.chess.com)
 
-# What is it?
-
+# Built with
+<img src="./assets/littleJsLogo.png" alt="LittleJS logo" width="400">
+- LittleJS
