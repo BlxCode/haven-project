@@ -16,6 +16,13 @@ let typesSizes = {
   table: ljs.vec2(30 / 5, 12 / 5),
   couch: ljs.vec2(62 / 5, 25 / 5),
   chair: ljs.vec2(17 / 5, 21 / 5),
+  grass: ljs.vec2(12 / 5, 12/5)
+};
+let grassHTMLImage = new Image();
+grassHTMLImage.src = "../assets/grass.png";
+let grass;
+grassHTMLImage.onload = () => {
+  grass = new ljs.TextureInfo(grassHTMLImage);
 };
 platformsImage.onload = () => {
   textureInfo = new ljs.TextureInfo(platformsImage);
@@ -24,6 +31,7 @@ platformsImage.onload = () => {
     table: new ljs.TileInfo(ljs.vec2(17, 20), ljs.vec2(30, 12), textureInfo),
     couch: new ljs.TileInfo(ljs.vec2(1, 39), ljs.vec2(62, 25), textureInfo),
     chair: new ljs.TileInfo(ljs.vec2(21, 75), ljs.vec2(17, 21), textureInfo),
+    grass: new ljs.TileInfo(ljs.vec2(0, 0), ljs.vec2(1600,1050), grass),
   };
 };
 const playersImage = new Image();
@@ -100,6 +108,7 @@ class Platform extends ljs.EngineObject {
     this.angle = Math.random() * 0.1 - 0.05;
     this.setCollision(true, true, false, true);
   }
+ 
 }
 class player extends ljs.EngineObject {
   constructor(pos) {
@@ -110,9 +119,18 @@ class player extends ljs.EngineObject {
     this.walkIndex = 0;
     this.tileInfo = playerTileInfos.idle;
     this.setCollision(true, true, true, true);
+    this.renderOrder = 5395435;
   }
 
   update() {
+    if(this.groundObject){
+        if(this.groundObject.type == "couch"){
+this.velocity.y = 0.9;
+        }
+        if(this.groundObject.type == "grass"){
+newObjectiveText("You are now on grass. You feel a sense of calm and peace. Suddenly, your ai girlfriend texts you. See says 'i dont care about you' 'i never cared cared about you' 'you are a loser for thinking ai had feelings so incipid like... love'");
+        }
+    }
     const moveInput = ljs.keyDirection();
     if (Math.abs(moveInput.x) > 0.1) {
       this.velocity.x += moveInput.x * (this.groundObject ? 0.05 : 0.045);
@@ -135,7 +153,7 @@ class player extends ljs.EngineObject {
 
     if (
       this.groundObject &&
-      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))
+      (ljs.keyIsDown("ArrowUp") || ljs.keyIsDown("Space"))
     ) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
@@ -177,7 +195,7 @@ window.addEventListener("gameJustStartedVro", () => {
 
   console.log("gameJustStartedVro event received in startScreen.js");
 
-  for (let i = 0; i < 350; i += 11) {
+  for (let i = 0; i < 350; i += 15) {
     const randomX = i + Math.random() + -0.5;
     const randomY = 1;
     const randomNum = Math.random();
@@ -188,8 +206,9 @@ window.addEventListener("gameJustStartedVro", () => {
     }
     new Platform(ljs.vec2(randomX, randomY), randomType);
   }
+new Platform(ljs.vec2(360, 1), "grass");
 
-  for (let i = -350; i < 350; i += 0.2) {
+  for (let i = -100; i < 500; i += 0.2) {
     const randomNum = Math.random();
     let randomType;
     if (randomNum < 0.33) {
