@@ -133,9 +133,10 @@ class player extends ljs.EngineObject {
       this.tileInfo = playerTileInfos.idle;
     }
 
-
-
-    if (this.groundObject && (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))) {
+    if (
+      this.groundObject &&
+      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))
+    ) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
     }
@@ -145,7 +146,7 @@ class player extends ljs.EngineObject {
     if (this.velocity.y > 0.1) {
       this.tileInfo = playerTileInfos.fall;
     }
-    if (this.pos.y < -30) {
+    if (this.pos.y < -9) {
       this.pos = ljs.vec2(1, 15);
       newObjectiveText("You fell off the map. You have been respawned.");
       this.velocity = ljs.vec2(0, 0);
@@ -156,13 +157,13 @@ class player extends ljs.EngineObject {
 window.addEventListener("gameJustStartedVro", () => {
   for (let i = -10; i < 20; i++) {
     const wall = new ljs.EngineObject(
-      ljs.vec2(i * 100, -10),
+      ljs.vec2(i * 100, 5),
       ljs.vec2(100, 56),
       archWallTile,
     );
-    wall.velocity = ljs.vec2(0,0);
-     wall.gravityScale = 0;
-    wall.mass = ljs.vec2(0,0)
+    wall.velocity = ljs.vec2(0, 0);
+    wall.gravityScale = 0;
+    wall.mass = ljs.vec2(0, 0);
     console.log(archWallTile);
     console.log("arch wall created at x: " + i);
     console.log("arch wall created at y: " + 0);
@@ -176,7 +177,7 @@ window.addEventListener("gameJustStartedVro", () => {
 
   console.log("gameJustStartedVro event received in startScreen.js");
 
-  for (let i = 0; i < 350; i += 9) {
+  for (let i = 0; i < 350; i += 11) {
     const randomX = i + Math.random() + -0.5;
     const randomY = 1;
     const randomNum = Math.random();
@@ -184,8 +185,31 @@ window.addEventListener("gameJustStartedVro", () => {
       var randomType = "table";
     } else if (randomNum < 0.5) {
       var randomType = "couch";
-    } 
+    }
     new Platform(ljs.vec2(randomX, randomY), randomType);
   }
+
+  for (let i = -350; i < 350; i += 0.2) {
+    const randomNum = Math.random();
+    let randomType;
+    if (randomNum < 0.33) {
+      randomType = noodleTile;
+    } else if (randomNum < 0.66) {
+      randomType = ratTile;
+    } else {
+      randomType = drinkTile;
+    }
+
+    let junk = new ljs.EngineObject(
+      ljs.vec2(i, -7.77 + (Math.random()* 7.5) - 3.5),
+      ljs.vec2(2),
+      randomType,
+    );
+    junk.gravityScale = 0;
+    junk.mass = 0;
+    junk.angle = Math.random() * 0.1 - 0.05;
+    junk.velocity = ljs.vec2(0, 0);
+  }
 });
+
 export { idk };

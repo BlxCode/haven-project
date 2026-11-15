@@ -32,10 +32,7 @@ function updateGame() {
       gameUpdateFrames.updateChuddyGuy = 0;
     }
   }
-  if(ljs.mouseWheel && !(ljs.cameraScale >150 || ljs.cameraScale < -5) && gameState == "started"){
-    console.log(ljs.cameraScale * ljs.mouseWheel)
-    ljs.setCameraScale(ljs.cameraScale * ljs.mouseWheel)
-  }
+  
 }
 // renders updated game
 let objectiveAudio = new Audio("../assets/newObjective.mp3");
