@@ -153,6 +153,9 @@ function enterGame() {
                 }, 900);
 
                 flashSound.play();
+                const chudQuartet = new Audio("../assets/chudQuartet.mp3");
+                chudQuartet.loop = true;
+                chudQuartet.play();
                 document.getElementById("backdrop2").hidden = false;
                 document.getElementById("backdrop2").style.animation =
                   "fadeIn 1s forwards";
