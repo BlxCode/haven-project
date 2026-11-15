@@ -15,6 +15,8 @@ let VERITY = new Audio("../assets/VERITY.mp3");
 let aiTalk = new Audio("../assets/aiTalk.mp3");
 VERITY.loop = true;
 function startGame() {}
+    ljs.setCameraScale(32)
+
 // runs every frame
 function updateGame() {
   for (const things in gameUpdateFrames) {
@@ -29,6 +31,10 @@ function updateGame() {
       // reset wait thingy
       gameUpdateFrames.updateChuddyGuy = 0;
     }
+  }
+  if(ljs.mouseWheel && !(ljs.cameraScale >150 || ljs.cameraScale < -5) && gameState == "started"){
+    console.log(ljs.cameraScale * ljs.mouseWheel)
+    ljs.setCameraScale(ljs.cameraScale * ljs.mouseWheel)
   }
 }
 // renders updated game
@@ -146,6 +152,7 @@ function enterGame() {
               setTimeout(() => {
                 setTimeout(() => {
                   window.dispatchEvent(new Event("gameJustStartedVro"));
+                  gameState = "started"
                 }, 900);
 
                 flashSound.play();
@@ -157,6 +164,9 @@ function enterGame() {
                     "fadeOut 1s forwards";
                   document.getElementById("backdrop").style.animation =
                     "fadeOut 1s forwards";
+                  setTimeout(() => {
+                    document.getElementById("staminaBar").hidden = false;
+                  }, 1000);
                 }, 4500);
               }, 1670);
             }, 300);
@@ -166,6 +176,6 @@ function enterGame() {
     }
   }
 }
-export {newObjectiveText};
+export { newObjectiveText };
 //make it so that on click of the button with the id "button" it calls the enterGame function
 document.getElementById("buttonCool").addEventListener("click", enterGame);
