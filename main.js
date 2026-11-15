@@ -130,7 +130,15 @@ function enterGame() {
         setTimeout(() => {
 chuddyGuy.pos = ljs.vec2(3, 2);
 chuddyGuy.size = ljs.vec2(10, 10);
-
+setTimeout(() => {
+    chuddyGuy.pos = ljs.vec2(8, 5);
+    chuddyGuy.size = ljs.vec2(5, 5);
+    setTimeout(() => {
+document.dispatchEvent(new Event("gameJustStartedVro"))
+document.getElementById("backdrop").hidden = false;
+document.getElementById("backdrop").style.animation = "fadeIn 1s forwards";
+    }, 300);
+}, 1000);
         }, 1000);
       }, 23600);
     }
