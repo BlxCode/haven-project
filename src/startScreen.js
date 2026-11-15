@@ -32,6 +32,9 @@ const chuddyGuyTiles = {
   anim1: new ljs.TileInfo(ljs.vec2(0, 0), ljs.vec2(32, 32), chuddyGuyImage),
   anim2: new ljs.TileInfo(ljs.vec2(32, 0), ljs.vec2(32, 32), chuddyGuyImage),
   back: new ljs.TileInfo(ljs.vec2(64, 0), ljs.vec2(32, 32), chuddyGuyImage),
+  cryStage1: new ljs.TileInfo(ljs.vec2(96, 0), ljs.vec2(32, 32), chuddyGuyImage),
+  cryStage2: new ljs.TileInfo(ljs.vec2(128, 0), ljs.vec2(32, 32), chuddyGuyImage),
+  cryStage3: new ljs.TileInfo(ljs.vec2(160, 0), ljs.vec2(32, 32), chuddyGuyImage),
 };
 
 const chuddyGuy = new ljs.EngineObject(

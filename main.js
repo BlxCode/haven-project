@@ -1,5 +1,5 @@
 import * as ljs from "littlejsengine";
-import { chuddyGuy, chuddyGuyTiles } from "./src/startScreen.js";
+import { chuddyGuy, chuddyGuyTiles, titleObject } from "./src/startScreen.js";
 // runs first when the page loads
 let gameState = "audioScreen";
 
@@ -35,13 +35,14 @@ function newObjectiveText(text) {
 objectiveAudio.play();
   setTimeout(() => {
     document.getElementById("objective-div").hidden = true;
-  }, 3000);
+  }, document.getElementById("objective-text").textContent.length * 67);
 
 }
   const aiDatingScreen = document.getElementById("datingScreen")
 aiDatingScreen.hidden = true
 function enterGame() {
   if (gameState == "audioScreen") {
+    document.getElementById("sc").remove();
     gameState = "startScreen";
     document.getElementById("loadingScreen").hidden = true;
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
@@ -57,7 +58,28 @@ function enterGame() {
     element.addEventListener("click", gameStart)
   
     function gameStart() {
+     titleObject.destroy();
+     VERITY.pause();
+        element.remove();
 aiDatingScreen.hidden = false
+setTimeout(() => {
+  aiDatingScreen.hidden = true;
+}, 3500);
+gameState = "theAkshualGame";
+chuddyGuy.tileInfo = chuddyGuyTiles.cryStage1
+setTimeout(() => {
+  chuddyGuy.tileInfo = chuddyGuyTiles.cryStage2;
+    newObjectiveText('You got rejected by your ai girlfriend 💀😭. She said "go touch grass" and left you alone.')
+
+}, 4500);
+setTimeout(() => {
+  chuddyGuy.tileInfo = chuddyGuyTiles.cryStage3
+
+}, 5500);
+
+
+
+
     }
   }
 }

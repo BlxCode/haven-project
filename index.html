@@ -69,14 +69,22 @@
         position:absolute;
         z-index:676767;
       }
+      #sc{
+        position:absolute;
+        width:100%;
+        height:100%;
+        z-index: -676767;
+        filter: contrast(1) brightness(0.5);
+      }
     </style>
   </head>
   <body>
-    <div id="objective-div" >
+    <div id="objective-div" hidden>
       <p id="objective-text">You got rejected by your ai girlfriend 💀😭. She said "go touch grass" and left you alone.</p>
     </div>
     <div id="loadingScreen">
-      <button id="buttonCool">ENTER</button>
+        <img id="sc" src="./assets/rblxScreenshot.png" alt="Loading..." />
+      <button id="buttonCool">become a chud</button>
       <img hidden id="verity" src="./assets/verity.gif" />
     </div>
     <img hidden = true id="datingScreen" src="./assets/datingScreen.png" alt="datingScreen">
