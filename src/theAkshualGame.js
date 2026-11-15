@@ -9,6 +9,8 @@ import {
   noodleTile,
   ratTile,
 } from "./floor.js";
+let maxStamina = 5;
+let stamina = 5;
 let textureInfo;
 let idk = 0;
 let typesTileInfo = {};
@@ -113,10 +115,16 @@ class player extends ljs.EngineObject {
   }
 
   update() {
+        document.getElementById("staminaBar").value = stamina;
+
     const moveInput = ljs.keyDirection();
-    if (Math.abs(moveInput.x) > 0.1) {
+    if (stamina+1 > maxStamina){
+ stamina ++
+    }
+    if (Math.abs(moveInput.x) > 0.1 && stamina < 0) {
       this.velocity.x += moveInput.x * (this.groundObject ? 0.05 : 0.045);
       this.velocity.x = Math.max(-0.3, Math.min(0.3, this.velocity.x));
+      stamina --;
     }
     if (this.velocity.x > 0.1) {
       this.mirror = false;
@@ -135,7 +143,7 @@ class player extends ljs.EngineObject {
 
     if (
       this.groundObject &&
-      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))
+      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space")) && stamina < 0
     ) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
