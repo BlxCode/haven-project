@@ -16,13 +16,23 @@ let typesSizes = {
   table: ljs.vec2(30 / 5, 12 / 5),
   couch: ljs.vec2(62 / 5, 25 / 5),
   chair: ljs.vec2(17 / 5, 21 / 5),
-  grass: ljs.vec2(12 / 5, 12/5)
+  grass: ljs.vec2(12 / 5, 12 / 5),
 };
 let grassHTMLImage = new Image();
 grassHTMLImage.src = "../assets/grass.png";
 let grass;
+function updateGrassTileInfo() {
+  if (grass) {
+    typesTileInfo.grass = new ljs.TileInfo(
+      ljs.vec2(0, 0),
+      ljs.vec2(1600, 1050),
+      grass,
+    );
+  }
+}
 grassHTMLImage.onload = () => {
   grass = new ljs.TextureInfo(grassHTMLImage);
+  updateGrassTileInfo();
 };
 platformsImage.onload = () => {
   textureInfo = new ljs.TextureInfo(platformsImage);
@@ -31,8 +41,8 @@ platformsImage.onload = () => {
     table: new ljs.TileInfo(ljs.vec2(17, 20), ljs.vec2(30, 12), textureInfo),
     couch: new ljs.TileInfo(ljs.vec2(1, 39), ljs.vec2(62, 25), textureInfo),
     chair: new ljs.TileInfo(ljs.vec2(21, 75), ljs.vec2(17, 21), textureInfo),
-    grass: new ljs.TileInfo(ljs.vec2(0, 0), ljs.vec2(1600,1050), grass),
   };
+  updateGrassTileInfo();
 };
 const playersImage = new Image();
 playersImage.src = "../assets/chud.png";
@@ -89,7 +99,8 @@ playersImage.onload = () => {
     ),
   };
 };
-
+let ending = false;
+let canMove = true;
 class Platform extends ljs.EngineObject {
   constructor(pos, type) {
     super();
@@ -108,7 +119,6 @@ class Platform extends ljs.EngineObject {
     this.angle = Math.random() * 0.1 - 0.05;
     this.setCollision(true, true, false, true);
   }
- 
 }
 class player extends ljs.EngineObject {
   constructor(pos) {
@@ -123,18 +133,27 @@ class player extends ljs.EngineObject {
   }
 
   update() {
+    if (this.groundObject) {
+      if (this.groundObject.type == "couch") {
+        this.velocity.y = 0.9;
+      }
+      if (this.groundObject.type == "grass" && !ending) {
+        ending = true;
+        window.dispatchEvent(new Event("ending"));
+        canMove = false;
+        setTimeout(() => {
+          document.getElementById("backdrop").hidden = false;
+          document.getElementById("backdrop").style.animation =
+            "fadeIn 1s forwards";
+        }, 1000);
 
-    if(this.groundObject){
-        if(this.groundObject.type == "couch"){
-this.velocity.y = 0.9;
-        }
-        if(this.groundObject.type == "grass"){
-            window.dispatchEvent(new Event("ending"));
-newObjectiveText("You are now on grass. You feel a sense of calm and peace. Suddenly, your ai girlfriend texts you. See says 'i dont care about you' 'i never cared cared about you' 'you are a loser for thinking ai had feelings so incipid like... love'");
-        }
+        newObjectiveText(
+          "You are now on grass. You feel a sense of calm and peace. Suddenly, your ai girlfriend texts you. See says 'i dont care about you' 'i never cared cared about you' 'you are a loser for thinking ai had feelings so incipid like... love'",
+        );
+      }
     }
     const moveInput = ljs.keyDirection();
-    if (Math.abs(moveInput.x) > 0.1) {
+    if (Math.abs(moveInput.x) > 0.1 && canMove) {
       this.velocity.x += moveInput.x * (this.groundObject ? 0.05 : 0.045);
       this.velocity.x = Math.max(-0.3, Math.min(0.3, this.velocity.x));
     }
@@ -155,7 +174,8 @@ newObjectiveText("You are now on grass. You feel a sense of calm and peace. Sudd
 
     if (
       this.groundObject &&
-      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space"))
+      (ljs.keyWasPressed("ArrowUp") || ljs.keyWasPressed("Space")) &&
+      canMove
     ) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
@@ -192,7 +212,6 @@ window.addEventListener("gameJustStartedVro", () => {
   }
   ljs.setGravity(ljs.vec2(0, -0.06));
 
-  new Platform(ljs.vec2(1, -1), "table");
   new player(ljs.vec2(1, 15));
 
   console.log("gameJustStartedVro event received in startScreen.js");
@@ -208,7 +227,7 @@ window.addEventListener("gameJustStartedVro", () => {
     }
     new Platform(ljs.vec2(randomX, randomY), randomType);
   }
-new Platform(ljs.vec2(360, 1), "grass");
+  new Platform(ljs.vec2(360, -4), "grass");
 
   for (let i = -100; i < 500; i += 0.2) {
     const randomNum = Math.random();
@@ -222,7 +241,7 @@ new Platform(ljs.vec2(360, 1), "grass");
     }
 
     let junk = new ljs.EngineObject(
-      ljs.vec2(i, -7.77 + (Math.random()* 7.5) - 3.5),
+      ljs.vec2(i, -7.77 + Math.random() * 7.5 - 3.5),
       ljs.vec2(2),
       randomType,
     );
