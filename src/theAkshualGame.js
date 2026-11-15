@@ -128,6 +128,7 @@ class player extends ljs.EngineObject {
 this.velocity.y = 0.9;
         }
         if(this.groundObject.type == "grass"){
+            window.dispatchEvent(new Event("ending"));
 newObjectiveText("You are now on grass. You feel a sense of calm and peace. Suddenly, your ai girlfriend texts you. See says 'i dont care about you' 'i never cared cared about you' 'you are a loser for thinking ai had feelings so incipid like... love'");
         }
     }
