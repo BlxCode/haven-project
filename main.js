@@ -1,5 +1,7 @@
 import * as ljs from "littlejsengine";
 import { chuddyGuy, chuddyGuyTiles, titleObject } from "./src/startScreen.js";
+import { idk } from "./src/theAkshualGame.js";
+idk;
 // runs first when the page loads
 let gameState = "audioScreen";
 const georgePig = new Audio("../assets/george.mp3");
@@ -12,7 +14,7 @@ let gameUpdateFrames = {
 let VERITY = new Audio("../assets/VERITY.mp3");
 let aiTalk = new Audio("../assets/aiTalk.mp3");
 VERITY.loop = true;
-function startGame() { }
+function startGame() {}
 // runs every frame
 function updateGame() {
   for (const things in gameUpdateFrames) {
@@ -79,7 +81,9 @@ function enterGame() {
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
     document.getElementById("verity").hidden = false;
     setTimeout(() => {
+      if(document.getElementById("buttonCool")) {
       document.getElementById("buttonCool").textContent = "Start!";
+      }
     }, 2000);
     setTimeout(() => {
       VERITY.play();
@@ -135,15 +139,22 @@ function enterGame() {
             chuddyGuy.pos = ljs.vec2(8, 5);
             chuddyGuy.size = ljs.vec2(5, 5);
             setTimeout(() => {
-              document.dispatchEvent(new Event("gameJustStartedVro"))
               document.getElementById("backdrop").hidden = false;
-              document.getElementById("backdrop").style.animation = "fadeIn 1s forwards";
+              document.getElementById("backdrop").style.animation =
+                "fadeIn 1s forwards";
 
-              setTimeout(() => { 
+              setTimeout(() => {
+                window.dispatchEvent(new Event("gameJustStartedVro"));
+
                 flashSound.play();
                 document.getElementById("backdrop2").hidden = false;
-                document.getElementById("backdrop2").style.animation = "fadeIn 1s forwards";
-              }, 1670)
+                document.getElementById("backdrop2").style.animation =
+                  "fadeIn 1s forwards";
+                  setTimeout(() => {
+                    document.getElementById("backdrop2").style.animation = "fadeOut 1s forwards";
+                    document.getElementById("backdrop").style.animation = "fadeOut 1s forwards";
+                  }, 4500);
+              }, 1670);
             }, 300);
           }, 1000);
         }, 1000);
@@ -152,4 +163,4 @@ function enterGame() {
   }
 }
 //make it so that on click of the button with the id "button" it calls the enterGame function
-                document.getElementById("buttonCool").addEventListener("click", enterGame);
+document.getElementById("buttonCool").addEventListener("click", enterGame);

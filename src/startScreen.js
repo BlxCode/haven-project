@@ -68,6 +68,15 @@ titleHTMLImage.onload = () => {
 );
 }
 
+window.addEventListener("gameJustStartedVro", () => {
+
+titleObject.destroy();
+chuddyRoom.destroy();
+chuddyGuy.destroy();
+
+
+});
+
 export { titleObject };
 export { chuddyRoom };
 
