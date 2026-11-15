@@ -77,6 +77,9 @@ playersImage.onload = () => {
 class Platform extends ljs.EngineObject {
   constructor(pos, type) {
     super();
+    this.gravityScale = 0;
+    this.mass = 0;
+    this.velocity = ljs.vec2(0, 0);
     this.pos = pos;
     this.size = typesSizes[type] || ljs.vec2(12, 6);
 
@@ -86,7 +89,7 @@ class Platform extends ljs.EngineObject {
     } else {
       console.error(`Invalid platform type: ${type}`);
     }
-    this.angle = Math.random() / 5 - 0.5;
+    this.angle = Math.random() / 3 - 0.5;
     this.setCollision(true, true, false, true);
   }
 }
@@ -96,7 +99,7 @@ class player extends ljs.EngineObject {
     this.pos = pos;
     this.walkFrames = 0;
     this.size = ljs.vec2(3, 5);
-
+    this.walkIndex = 0;
     this.tileInfo = playerTileInfos.idle;
     this.setCollision(true, true, true, true);
   }
@@ -104,35 +107,52 @@ class player extends ljs.EngineObject {
   update() {
     const moveInput = ljs.keyDirection();
     if (Math.abs(moveInput.x) > 0.1) {
-      this.velocity.x += moveInput.x * (this.groundObject ? 0.3 : 0.1);
+      this.velocity.x += moveInput.x * (this.groundObject ? 0.05 : 0.06);
     } else if (Math.abs(moveInput.x) < 0.1) {
-      this.velocity.x *= this.groundObject ? 0.8 : 0.98;
+      this.velocity.x *= this.groundObject ? 0.05 : 0.06;
     }
     this.walkFrames++;
     if (Math.abs(moveInput.x) > 0.1 && this.walkFrames > 10) {
-      this.tileInfo = playerTileInfos[`walk${(Math.floor(this.walkFrames / 10) % 4) + 1}`];
+      this.walkIndex = (this.walkIndex % 4) + 1;
+      this.tileInfo = playerTileInfos[`walk${this.walkIndex}`];
       this.walkFrames = 0;
     }
-    if (Math.abs(moveInput.x) < 0.1 ) {
-        this.tileInfo = playerTileInfos.idle;
-
+    if (Math.abs(moveInput.x) < 0.1) {
+      this.tileInfo = playerTileInfos.idle;
     }
     if (this.groundObject && moveInput.y > 0) {
       this.velocity.y = 0.9; // jump
       console.log("jump");
     }
-    if (this.velocity.y  < -0.1) {
-this.tileInfo = playerTileInfos.jump;
+    if (this.velocity.y < -0.1) {
+      this.tileInfo = playerTileInfos.jump;
     }
-
+    if (this.velocity.y > 0.1) {
+      this.tileInfo = playerTileInfos.fall;
+    }
     ljs.setCameraPos(this.pos);
   }
 }
 window.addEventListener("gameJustStartedVro", () => {
-    ljs.setGravity(ljs.vec2(0, -0.02));
+  ljs.setGravity(ljs.vec2(0, -0.05));
 
-  new player(ljs.vec2(1, 1));
   new Platform(ljs.vec2(1, -1), "table");
+  new player(ljs.vec2(1, 15));
+
   console.log("gameJustStartedVro event received in startScreen.js");
+
+  for (let i = 0; i < 50; i++) {
+    const randomX = Math.floor(Math.random() * 4) + 2;
+    const randomY = Math.floor(Math.random() * 3) + 2;
+    const randomNum = Math.random();
+    if(randomNum < 0.33) {
+      var randomType = "table";
+    } else if(randomNum < 0.66) {
+      var randomType = "couch";
+    } else {
+      var randomType = "chair";
+    }
+    new Platform(ljs.vec2(randomX, randomY), randomType);
+  }
 });
 export { idk };

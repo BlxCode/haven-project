@@ -81,8 +81,8 @@ function enterGame() {
     document.getElementById("buttonCool").className = "BUTTONANIMGOUP";
     document.getElementById("verity").hidden = false;
     setTimeout(() => {
-      if(document.getElementById("buttonCool")) {
-      document.getElementById("buttonCool").textContent = "Start!";
+      if (document.getElementById("buttonCool")) {
+        document.getElementById("buttonCool").textContent = "Start!";
       }
     }, 2000);
     setTimeout(() => {
@@ -144,16 +144,20 @@ function enterGame() {
                 "fadeIn 1s forwards";
 
               setTimeout(() => {
-                window.dispatchEvent(new Event("gameJustStartedVro"));
+                setTimeout(() => {
+                  window.dispatchEvent(new Event("gameJustStartedVro"));
+                }, 900);
 
                 flashSound.play();
                 document.getElementById("backdrop2").hidden = false;
                 document.getElementById("backdrop2").style.animation =
                   "fadeIn 1s forwards";
-                  setTimeout(() => {
-                    document.getElementById("backdrop2").style.animation = "fadeOut 1s forwards";
-                    document.getElementById("backdrop").style.animation = "fadeOut 1s forwards";
-                  }, 4500);
+                setTimeout(() => {
+                  document.getElementById("backdrop2").style.animation =
+                    "fadeOut 1s forwards";
+                  document.getElementById("backdrop").style.animation =
+                    "fadeOut 1s forwards";
+                }, 4500);
               }, 1670);
             }, 300);
           }, 1000);

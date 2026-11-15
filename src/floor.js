@@ -30,6 +30,7 @@ redditWallHTMLImage.onload = ()=>{
 redditWallTile = new ljs.TileInfo(
     ljs.vec2(0,0),
     ljs.vex2(100,56),
+    new ljs.TextureInfo(redditWallHTMLImage)
 )
 }
 
@@ -37,9 +38,10 @@ const archWallHTMLImage = new Image();
 archWallHTMLImage.scr = "../assets/archWall.png"
 let archWallTile;
 archWallTileImage.onload = ()=>{
-new ljs.TileInfo(
+archWallTile = new ljs.TileInfo(
     ljs.vec2(0,0),
     ljs.vex2(100,56),
+    new ljs.TextureInfo(archWallHTMLImage)
 
 )
 }
@@ -47,10 +49,14 @@ new ljs.TileInfo(
 const drinkHTMLImage = new Image();
 drinkHTMLImage.scr = "../assets/drink.png"
 let drinkTile;
+
 drinkTileImage.onload = ()=>{
-new ljs.TileInfo(
+
+drinkTile = new ljs.TileInfo(
     ljs.vec2(0,0),
     ljs.vex2(32,32),
+    new ljs.TextureInfo(drinkHTMLImage)
 
 )
 }
+export {noodleTile, ratTile, redditWallTile, archWallTile, drinkTile};
