@@ -127,6 +127,11 @@ function enterGame() {
         newObjectiveText(
           "You are now alone in the world. the game will make ur character walk into the door cuz i said so, to maybe get her back.",
         );
+        setTimeout(() => {
+chuddyGuy.pos = ljs.vec2(3, 2);
+chuddyGuy.size = ljs.vec2(10, 10);
+
+        }, 1000);
       }, 23600);
     }
   }
